@@ -60,6 +60,21 @@ echo "Urok3 - это не скрипт"
 
 
 # Задание 3
+  # создать файлы
+  cd ~
+  touch fl1
+  touch fl2
+  ls -l | grep 'fl'
+  # чтение и запись владельцу и группе, для всех - чтение
+  sudo chmod ug+rw,o+r fl1
+  ls -l | grep 'fl'
+  sudo chmod 664 fl1
+  ls -l | grep 'fl'
+  # чтение и запись - владелец
+  sudo chmod u=rw,go-rw fl2
+  ls -l | grep 'fl'
+  sudo chmod 600 fl2
+  ls -l | grep 'fl'
 
 
 
@@ -83,5 +98,39 @@ echo "Urok3 - это не скрипт"
 
 
 # Задание 5
+sudo groupadd developer
+sudo useradd -m -g developer -s /bin/bash user1 && sudo passwd user1
+sudo useradd -m -g developer -s /bin/bash user2 && sudo passwd user2
+sudo useradd -m -g developer -s /bin/bash user3 && sudo passwd user3
+
+cd /
+sudo mkdir dir-developer
+sudo chown -R root:developer /dir-developer
+sudo chmod 775 /dir-developer
+sudo chmod 664 -R /dir-developer/*
+
+sudo setfacl -m g:developer:rwx dir-developer
+sudo setfacl -d -m u::rwx,g::rwx,o::-,g:developer:rwx dir-developer
+getfacl /dir-developer
+
+
+
+
+
 # Задание 6
+cd /
+sudo mkdir /dir-developer/share
+sudo chown -R root:developer /dir-developer/share
+sudo setfacl -m g:developer:r-x share
+sudo setfacl -d -m u::rwx,g::r-x,o::-,g:developer:r-x share
+
+
 # Задание 7
+cd ~
+mkdir hdir
+sudo chmod 330 hdir
+cd hdir
+touch 1
+ls -l
+# ls: невозможно открыть каталог '.': Отказано в доступе
+cat 1
