@@ -10,16 +10,29 @@ sudo nmcli con up "Проводное соединение 1"
 
 
 Задание 2:
+
 sudo iptables -p INPUT DROP 
+
 sudo iptables -p OUTPUT ACCEPT
+
 sudo iptables -p FORWARD ACCEPT
+
 sudo iptables -A INPUT -i lo -j ACCEPT
+
 sudo iptables -A INPUT -m state -state  RELATED,ESTABLISHED -j ACCEPT
+
 sudo iptables -A INPUT -s 192.168.0.***/24 -i enp0s3 -p tcp —dport 22 -j ACCEPT
+
 sudo iptables -A INPUT -i enp0s3  -p tcp --dport 80 -j ACCEPT
+
 sudo iptables -A INPUT -i enp0s3  -p tcp --dport 443 -j ACCEPT
+
 sudo iptables -A INPUT -i enp0s3  -p udp --sport 53 -j ACCEPT
 
+
 Задание 3:
+
 sudo iptables -t nat -A PREROUTING -i enp0s3 -p tcp -m tcp --dport 80 -j DNAT --to-destination 192.168.0.19:80
+
 sudo iptables -A FORWARD -p tcp -d 192.168.0.19 --dport 8080 -j ACCEPT
+
