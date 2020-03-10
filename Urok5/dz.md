@@ -1,7 +1,4 @@
 Задание 1:
-nmcli con mod enp0s3 ipv4.method manual ipv4.addr "192.168.0.19/24"
-
-nmcli con modify enp0s3 +ipv4.dns "192.168.01, 8.8.8.8"
 
 sudo nmcli con add con-name geekbrains-con ifname enp0s3 type ethernet ip4 192.168.0.19/24 gw4 192.168.0.1
 
